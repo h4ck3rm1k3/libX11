@@ -28,7 +28,7 @@ in this Software without prior written authorization from The Open Group.
 #include <config.h>
 #endif
 #include "Xlibint.h"
-
+#include <stdio.h>
 int
 XDrawImageString(
     register Display *dpy,
@@ -43,6 +43,8 @@ XDrawImageString(
     char *CharacterOffset = (char *)string;
     int FirstTimeThrough = True;
     int lastX = 0;
+
+printf("XDrawImageString:%.*s\n", length, string);
 
     LockDisplay(dpy);
     FlushGC(dpy, gc);
@@ -73,7 +75,12 @@ XDrawImageString(
 	    str = CharacterOffset - 255;
 	    for (ptr = buf, i = 255; --i >= 0; ) {
 		*ptr++ = 0;
+
+
+
 		*ptr++ = *str++;
+
+
 	    }
 	    Data (dpy, buf, 510);
 	    if (!_XReply (dpy, (xReply *)&rep, 0, xTrue))
